@@ -1,9 +1,10 @@
 const path = require('path');
-const fs = require('fs');
+// const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // src/pages 目录为页面入口的根目录
 // const pagesRoot = path.resolve(__dirname, './src/pages');
@@ -16,15 +17,15 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'development', // 指定构建模式
+  devtool: 'cheap-module-eval-source-map',
 
   // 将 entries 对象作为入口配置
   entry: './src/index.js',
 
   output: {
-    // 路径中使用 hash，每次构建时会有一个不同 hash 值，可以用于避免发布新版本时浏览器缓存导致代码没有更新
-    // 文件名中也可以使用 hash
-    path: path.join(__dirname, '/dist/[hash]'),
+    // 文件名中可以使用 hash，可以用于避免发布新版本时浏览器缓存导致代码没有更新
     filename: '[name].js', // 使用 [name] 来引用 entry 名称
+    path: path.join(__dirname, '/dist'),
   },
 
   devServer: {
@@ -34,6 +35,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: "http://localhost:3000", // 将 URL 中带有 /api 的请求代理到本地的 3000 端口的服务上
+        changeOrigin: true,
         pathRewrite: { '^/api': '' }, // 把 URL 中 path 部分的 `api` 移除掉
       },
     }
@@ -126,7 +128,7 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      filename: 'public/index.html', // 配置文件模板
+      template: 'public/index.html', // 配置文件模板
       minify: { // 压缩 HTML 的配置
         minifyCSS: true, // 压缩 HTML 中出现的 CSS 代码
         minifyJS: true, // 压缩 HTML 中出现的 JS 代码
@@ -137,6 +139,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css' // 这里也可以使用 [hash]
     }), // 将 css 文件单独抽离的 plugin
+    new CleanWebpackPlugin(),
+    // HMR 特性所需要的插件
+    new webpack.HotModuleReplacementPlugin()
   ],
 
   // TerserPlugin 的使用比较特别，需要配置在 optimization 字段中，属于构建代码优化的一部分

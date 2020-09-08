@@ -1,3 +1,7 @@
-import "./style/index.css"
+import createHeading from './heading.js'
+import './style.css'
 
-console.log(process.env.NODE_ENV);
+
+const heading = createHeading()
+document.body.append(heading)
+document.body.append(document.createElement('input'))
