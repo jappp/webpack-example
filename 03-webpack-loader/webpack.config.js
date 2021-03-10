@@ -6,19 +6,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        // 对同一个模块使用多个 loader，注意顺序
+        test: /\.css$/, // 根据打包过程中所遇到的文件路径匹配是否使用该loader
         use: [
           'style-loader',
-          'css-loader'
-        ]
+          'css-loader',
+        ], // 指定具体loader, 多个loader执行顺序由后向前，栈
       },
       {
         test: /\.md$/,
-        use: [
-          'html-loader',
-          './markdown-loader'
-        ]
+        use: './markdown-loader'
       }
     ]
   }

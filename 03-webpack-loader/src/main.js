@@ -1,5 +1,5 @@
 import about from './about.md'
-import './style.css'
+import './main.css'
 
 // app logic...
 console.log('App starts running~')
