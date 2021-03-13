@@ -1,3 +1,4 @@
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const allModes = [
@@ -30,9 +31,10 @@ module.exports = allModes.map(item => ({
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['babel-preset-env']
           }
-        }
+        },
+        exclude: '/node_modules/'
       }
     ]
   },
@@ -40,5 +42,8 @@ module.exports = allModes.map(item => ({
     new HtmlWebpackPlugin({
       filename: `${item}.html`
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+  }
 }))
