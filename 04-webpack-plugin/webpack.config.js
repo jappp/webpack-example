@@ -11,11 +11,14 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
+    // 重新打包时清除之前打包目录
     new CleanWebpackPlugin(),
+    // 动态生成html文件
     new HtmlWebpackPlugin({
       title: 'Webpack Plugin Sample',
       template: './src/index.html'
     }),
+    // 拷贝静态资源
     new CopyWebpackPlugin({
       patterns: [
         { 
