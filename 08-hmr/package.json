@@ -5,10 +5,18 @@
   "author": "zce <w@zce.me> (https://zce.me)",
   "license": "MIT",
   "scripts": {
+    "start": "webpack-dev-server",
     "build": "webpack"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^5.1.2",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.2"
   }
 }

@@ -3,8 +3,6 @@ import createEditor from './editor'
 const editor = createEditor()
 document.body.appendChild(editor)
 
-// ... 原本的业务代码
-
 // HMR --------------------------------
 let lastEditor = editor
 module.hot.accept('./editor', () => {
@@ -14,7 +12,7 @@ module.hot.accept('./editor', () => {
   // 移除更新前的元素
   document.body.removeChild(lastEditor)
   // 创建新的编辑器
-  // 此时 createEditor 已经是更新过后的函数了
+  // 此时 createEditor 已经是更新过后的函数了 
   lastEditor = createEditor()
   // 还原编辑器内容
   lastEditor.innerHTML = value
