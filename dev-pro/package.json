@@ -5,7 +5,7 @@
   "author": "zce <w@zce.me> (https://zce.me)",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.pro.js",
     "dev": "webpack-dev-server"
   },
   "devDependencies": {
